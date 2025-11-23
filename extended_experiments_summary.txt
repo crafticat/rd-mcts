@@ -1,0 +1,56 @@
+================================================================================
+EXTENDED EXPERIMENTS SUMMARY REPORT
+================================================================================
+
+## EXPERIMENT 1: Noise Sweep (When Does Penalty Help?)
+
+Testing RD-MCTS (λ=0) vs RD-MCTS (λ=1) at different noise levels:
+
+Noise σ=0.0:
+  λ=0: 9 wins, λ=1: 11 wins, draws: 0
+  Win rate for λ=1: 55.0%
+  → Penalty has NEUTRAL effect
+
+Noise σ=0.1:
+  λ=0: 11 wins, λ=1: 9 wins, draws: 0
+  Win rate for λ=1: 45.0%
+  → Penalty has NEUTRAL effect
+
+Noise σ=0.2:
+  λ=0: 9 wins, λ=1: 11 wins, draws: 0
+  Win rate for λ=1: 55.0%
+  → Penalty has NEUTRAL effect
+
+Noise σ=0.4:
+  λ=0: 11 wins, λ=1: 9 wins, draws: 0
+  Win rate for λ=1: 45.0%
+  → Penalty has NEUTRAL effect
+
+
+## EXPERIMENT 2: RD-MCTS vs Other MCTS Optimizations
+
+Round-robin tournament with fixed network:
+
+Overall Rankings:
+  1. RD-MCTS (λ=1): 75.0% (90/120 wins)
+  2. RD-MCTS (λ=0): 74.2% (89/120 wins)
+  3. RD-MCTS (λ=2): 67.5% (81/120 wins)
+  4. RAVE: 61.7% (74/120 wins)
+  5. UCB-V: 19.2% (23/120 wins)
+  6. Standard PUCT: 18.3% (22/120 wins)
+  7. Thompson Scalar: 15.0% (18/120 wins)
+
+## KEY FINDINGS
+
+1. Best RD-MCTS variant: RD-MCTS (λ=1) (75.0% win rate)
+
+2. RD-MCTS variants average: 72.2%
+   Baselines average: 33.1%
+   → RD-MCTS significantly outperforms baselines
+
+3. Penalty effectiveness:
+   At σ=0.0: λ=1 wins 55%
+   At σ=0.4: λ=1 wins 45%
+   → Penalty becomes LESS helpful with increased noise
+
+================================================================================

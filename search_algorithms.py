@@ -248,3 +248,203 @@ class ThompsonScalarMCTSSearch(Search):
                 leaf_value = -leaf_value
         
         return root.children
+
+class UCBVMCTSSearch(Search):
+    """UCB1-Tuned / UCB-V: Variance-aware UCB for risk-sensitive search."""
+    
+    def search(self, root_state, simulations=50):
+        root = SearchNode(0)
+        
+        board_tensor = torch.FloatTensor(root_state.get_canonical_state()).to(DEVICE)
+        with torch.no_grad():
+            pi, value_rep = self.model(board_tensor)
+        
+        root.value_sum = self.model.value_head.to_scalar(value_rep)
+        root.visits = 1
+        root.M2 = 0.0
+        valid_moves = root_state.get_valid_moves()
+        
+        noise = np.random.dirichlet([0.3] * len(valid_moves))
+        
+        for idx, move in enumerate(valid_moves):
+            root.children[move] = SearchNode(prior=np.exp(pi.cpu().numpy()[0][move]))
+            root.children[move].prior = 0.75 * root.children[move].prior + 0.25 * noise[idx]
+            root.children[move].M2 = 0.0
+        
+        for _ in range(simulations):
+            node = root
+            game = copy.deepcopy(root_state)
+            path = [node]
+            
+            while node.children:
+                best_score = -float('inf')
+                best_move = -1
+                best_child = None
+                
+                for move, child in node.children.items():
+                    if child.visits == 0:
+                        score = float('inf')
+                    else:
+                        q_value = child.get_value()
+                        
+                        # UCB-V: variance-aware exploration
+                        variance = child.M2 / child.visits if child.visits > 0 else 0.25
+                        
+                        # UCB1-Tuned formula: includes variance in exploration term
+                        V_bound = variance + np.sqrt(2 * np.log(node.visits) / child.visits)
+                        V_bound = min(V_bound, 0.25)  # Clamp to [0, 0.25] for values in [-1, 1]
+                        
+                        exploration = np.sqrt(np.log(node.visits) / child.visits * V_bound)
+                        
+                        # Add policy prior like PUCT
+                        u = self.config.c_puct * child.prior * np.sqrt(node.visits) / (1 + child.visits)
+                        
+                        score = q_value + exploration + u
+                    
+                    if score > best_score:
+                        best_score = score
+                        best_move = move
+                        best_child = child
+                
+                game = game.make_move(best_move)
+                node = best_child
+                path.append(node)
+            
+            if not game.is_terminal():
+                board_tensor = torch.FloatTensor(game.get_canonical_state()).to(DEVICE)
+                with torch.no_grad():
+                    pi, value_rep = self.model(board_tensor)
+                leaf_value = self.model.value_head.to_scalar(value_rep)
+                
+                valid = game.get_valid_moves()
+                probs = np.exp(pi.cpu().numpy()[0])
+                for m in valid:
+                    node.children[m] = SearchNode(probs[m])
+                    node.children[m].M2 = 0.0
+            else:
+                result = game.check_win()
+                if result == 0:
+                    leaf_value = 0.0
+                else:
+                    leaf_value = -result * game.player
+            
+            # Backpropagate with variance tracking
+            for n in path:
+                n.visits += 1
+                old_mean = n.value_sum / max(1, n.visits - 1) if n.visits > 1 else 0
+                n.value_sum += leaf_value
+                new_mean = n.value_sum / n.visits
+                
+                if not hasattr(n, 'M2'):
+                    n.M2 = 0.0
+                delta = leaf_value - old_mean
+                delta2 = leaf_value - new_mean
+                n.M2 += delta * delta2
+                
+                leaf_value = -leaf_value
+        
+        return root.children
+
+class RAVEMCTSSearch(Search):
+    """RAVE (Rapid Action Value Estimation): Uses AMAF statistics for faster learning."""
+    
+    def search(self, root_state, simulations=50):
+        root = SearchNode(0)
+        
+        board_tensor = torch.FloatTensor(root_state.get_canonical_state()).to(DEVICE)
+        with torch.no_grad():
+            pi, value_rep = self.model(board_tensor)
+        
+        root.value_sum = self.model.value_head.to_scalar(value_rep)
+        root.visits = 1
+        valid_moves = root_state.get_valid_moves()
+        
+        noise = np.random.dirichlet([0.3] * len(valid_moves))
+        
+        for idx, move in enumerate(valid_moves):
+            root.children[move] = SearchNode(prior=np.exp(pi.cpu().numpy()[0][move]))
+            root.children[move].prior = 0.75 * root.children[move].prior + 0.25 * noise[idx]
+            # AMAF (All-Moves-As-First) statistics
+            root.children[move].amaf_sum = 0.0
+            root.children[move].amaf_visits = 0
+        
+        for _ in range(simulations):
+            node = root
+            game = copy.deepcopy(root_state)
+            path = [node]
+            moves_played = []
+            
+            while node.children:
+                best_score = -float('inf')
+                best_move = -1
+                best_child = None
+                
+                for move, child in node.children.items():
+                    if child.visits == 0:
+                        score = float('inf')
+                    else:
+                        q_value = child.get_value()
+                        
+                        # RAVE: Mix regular Q with AMAF Q
+                        amaf_q = child.amaf_sum / child.amaf_visits if child.amaf_visits > 0 else 0
+                        
+                        # Beta schedule: weight AMAF more early, regular Q more later
+                        # Common formula: β = sqrt(k / (3*n + k)) where k is a constant
+                        k = 100  # Tunable parameter
+                        beta = np.sqrt(k / (3 * child.visits + k))
+                        
+                        mixed_q = (1 - beta) * q_value + beta * amaf_q
+                        
+                        # UCB exploration
+                        u = self.config.c_puct * child.prior * np.sqrt(node.visits) / (1 + child.visits)
+                        
+                        score = mixed_q + u
+                    
+                    if score > best_score:
+                        best_score = score
+                        best_move = move
+                        best_child = child
+                
+                moves_played.append(best_move)
+                game = game.make_move(best_move)
+                node = best_child
+                path.append(node)
+            
+            if not game.is_terminal():
+                board_tensor = torch.FloatTensor(game.get_canonical_state()).to(DEVICE)
+                with torch.no_grad():
+                    pi, value_rep = self.model(board_tensor)
+                leaf_value = self.model.value_head.to_scalar(value_rep)
+                
+                valid = game.get_valid_moves()
+                probs = np.exp(pi.cpu().numpy()[0])
+                for m in valid:
+                    node.children[m] = SearchNode(probs[m])
+                    node.children[m].amaf_sum = 0.0
+                    node.children[m].amaf_visits = 0
+            else:
+                result = game.check_win()
+                if result == 0:
+                    leaf_value = 0.0
+                else:
+                    leaf_value = -result * game.player
+            
+            # Backpropagate regular statistics
+            for n in path:
+                n.visits += 1
+                n.value_sum += leaf_value
+                leaf_value = -leaf_value
+            
+            # Update AMAF statistics for all moves played
+            # For each node in path, update AMAF for all moves that were played later
+            for i, node in enumerate(path[:-1]):  # Exclude leaf
+                amaf_value = leaf_value if i % 2 == 0 else -leaf_value
+                for move in moves_played[i:]:
+                    if move in node.children:
+                        if not hasattr(node.children[move], 'amaf_sum'):
+                            node.children[move].amaf_sum = 0.0
+                            node.children[move].amaf_visits = 0
+                        node.children[move].amaf_sum += amaf_value
+                        node.children[move].amaf_visits += 1
+        
+        return root.children
