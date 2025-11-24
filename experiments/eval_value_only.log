@@ -1,0 +1,185 @@
+================================================================================
+VALUE-ONLY CHECKPOINT EVALUATION
+================================================================================
+
+================================================================================
+Evaluating RD-MCTS (Value-Only) Checkpoints
+================================================================================
+
+Checkpoint 10 (after 10 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=1, L=14, D=0
+    Game 20/20: W=2, L=18, D=0
+  Results: W=2, L=18, D=0, Win Rate=10.0%
+
+Checkpoint 20 (after 20 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=1, L=9, D=0
+    Game 15/20: W=2, L=13, D=0
+    Game 20/20: W=2, L=18, D=0
+  Results: W=2, L=18, D=0, Win Rate=10.0%
+
+Checkpoint 30 (after 30 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=1, L=9, D=0
+    Game 15/20: W=3, L=12, D=0
+    Game 20/20: W=4, L=16, D=0
+  Results: W=4, L=16, D=0, Win Rate=20.0%
+
+Checkpoint 40 (after 40 games):
+    Game 5/20: W=2, L=3, D=0
+    Game 10/20: W=3, L=7, D=0
+    Game 15/20: W=4, L=11, D=0
+    Game 20/20: W=4, L=16, D=0
+  Results: W=4, L=16, D=0, Win Rate=20.0%
+
+Checkpoint 50 (after 50 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=1, L=9, D=0
+    Game 15/20: W=2, L=13, D=0
+    Game 20/20: W=3, L=17, D=0
+  Results: W=3, L=17, D=0, Win Rate=15.0%
+
+Checkpoint 60 (after 60 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=2, L=8, D=0
+    Game 15/20: W=2, L=13, D=0
+    Game 20/20: W=3, L=17, D=0
+  Results: W=3, L=17, D=0, Win Rate=15.0%
+
+Checkpoint 70 (after 70 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=2, L=8, D=0
+    Game 15/20: W=3, L=12, D=0
+    Game 20/20: W=3, L=17, D=0
+  Results: W=3, L=17, D=0, Win Rate=15.0%
+
+Checkpoint 80 (after 80 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=3, L=7, D=0
+    Game 15/20: W=4, L=11, D=0
+    Game 20/20: W=6, L=14, D=0
+  Results: W=6, L=14, D=0, Win Rate=30.0%
+
+Checkpoint 90 (after 90 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=1, L=9, D=0
+    Game 15/20: W=3, L=12, D=0
+    Game 20/20: W=3, L=17, D=0
+  Results: W=3, L=17, D=0, Win Rate=15.0%
+
+Checkpoint 100 (after 100 games):
+    Game 5/20: W=1, L=4, D=0
+    Game 10/20: W=2, L=8, D=0
+    Game 15/20: W=3, L=12, D=0
+    Game 20/20: W=3, L=17, D=0
+  Results: W=3, L=17, D=0, Win Rate=15.0%
+
+================================================================================
+Evaluating Scalar MCTS (Value-Only) Checkpoints
+================================================================================
+
+Checkpoint 10 (after 10 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 20 (after 20 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 30 (after 30 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 40 (after 40 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 50 (after 50 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 60 (after 60 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 70 (after 70 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 80 (after 80 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 90 (after 90 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+Checkpoint 100 (after 100 games):
+    Game 5/20: W=0, L=5, D=0
+    Game 10/20: W=0, L=10, D=0
+    Game 15/20: W=0, L=15, D=0
+    Game 20/20: W=0, L=20, D=0
+  Results: W=0, L=20, D=0, Win Rate=0.0%
+
+================================================================================
+EVALUATION COMPLETE!
+================================================================================
+
+Results saved to: learning_curve_value_only_results.json
+
+================================================================================
+SUMMARY
+================================================================================
+
+RD-MCTS (Value-Only):
+  10 games: 10.0% win rate
+  20 games: 10.0% win rate
+  30 games: 20.0% win rate
+  40 games: 20.0% win rate
+  50 games: 15.0% win rate
+  60 games: 15.0% win rate
+  70 games: 15.0% win rate
+  80 games: 30.0% win rate
+  90 games: 15.0% win rate
+  100 games: 15.0% win rate
+
+Scalar MCTS (Value-Only):
+  10 games: 0.0% win rate
+  20 games: 0.0% win rate
+  30 games: 0.0% win rate
+  40 games: 0.0% win rate
+  50 games: 0.0% win rate
+  60 games: 0.0% win rate
+  70 games: 0.0% win rate
+  80 games: 0.0% win rate
+  90 games: 0.0% win rate
+  100 games: 0.0% win rate

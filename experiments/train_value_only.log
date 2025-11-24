@@ -1,0 +1,140 @@
+/home/ubuntu/rd-mcts-project/experiments/train_value_only.py:97: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:275.)
+  batch_states = torch.FloatTensor([all_states[j] for j in batch_indices]).to(DEVICE)
+================================================================================
+VALUE-ONLY LEARNING CURVE TRAINING
+================================================================================
+
+================================================================================
+Training RD-MCTS (Value-Only)
+================================================================================
+
+Checkpoint 1/10 (Games 1-10)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.4097
+  Saved checkpoint: rd_mcts_checkpoint_10.pt
+
+Checkpoint 2/10 (Games 11-20)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.0538
+  Saved checkpoint: rd_mcts_checkpoint_20.pt
+
+Checkpoint 3/10 (Games 21-30)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.1667
+  Saved checkpoint: rd_mcts_checkpoint_30.pt
+
+Checkpoint 4/10 (Games 31-40)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.3837
+  Saved checkpoint: rd_mcts_checkpoint_40.pt
+
+Checkpoint 5/10 (Games 41-50)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.1216
+  Saved checkpoint: rd_mcts_checkpoint_50.pt
+
+Checkpoint 6/10 (Games 51-60)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.0046
+  Saved checkpoint: rd_mcts_checkpoint_60.pt
+
+Checkpoint 7/10 (Games 61-70)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.4031
+  Saved checkpoint: rd_mcts_checkpoint_70.pt
+
+Checkpoint 8/10 (Games 71-80)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.2931
+  Saved checkpoint: rd_mcts_checkpoint_80.pt
+
+Checkpoint 9/10 (Games 81-90)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 2.2259
+  Saved checkpoint: rd_mcts_checkpoint_90.pt
+
+Checkpoint 10/10 (Games 91-100)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 1.9569
+  Saved checkpoint: rd_mcts_checkpoint_100.pt
+
+================================================================================
+Training Scalar MCTS (Value-Only)
+================================================================================
+
+Checkpoint 1/10 (Games 1-10)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.3093
+  Saved checkpoint: scalar_mcts_checkpoint_10.pt
+
+Checkpoint 2/10 (Games 11-20)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.3651
+  Saved checkpoint: scalar_mcts_checkpoint_20.pt
+
+Checkpoint 3/10 (Games 21-30)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.2174
+  Saved checkpoint: scalar_mcts_checkpoint_30.pt
+
+Checkpoint 4/10 (Games 31-40)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.4114
+  Saved checkpoint: scalar_mcts_checkpoint_40.pt
+
+Checkpoint 5/10 (Games 41-50)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.3938
+  Saved checkpoint: scalar_mcts_checkpoint_50.pt
+
+Checkpoint 6/10 (Games 51-60)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.6003
+  Saved checkpoint: scalar_mcts_checkpoint_60.pt
+
+Checkpoint 7/10 (Games 61-70)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.6408
+  Saved checkpoint: scalar_mcts_checkpoint_70.pt
+
+Checkpoint 8/10 (Games 71-80)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.6552
+  Saved checkpoint: scalar_mcts_checkpoint_80.pt
+
+Checkpoint 9/10 (Games 81-90)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.4778
+  Saved checkpoint: scalar_mcts_checkpoint_90.pt
+
+Checkpoint 10/10 (Games 91-100)
+  Game 5/10 complete
+  Game 10/10 complete
+  Average loss: 0.8222
+  Saved checkpoint: scalar_mcts_checkpoint_100.pt
+
+================================================================================
+TRAINING COMPLETE!
+================================================================================
+
+Checkpoints saved to: checkpoints_value_only/
+Ready for evaluation against Minimax benchmark.
